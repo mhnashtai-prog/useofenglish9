@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USE OF ENGLISH — C1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header .highlight {
+            color: #4FC3F7;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 40px;
+            flex: 1;
+        }
+
+        .menu-panel {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4FC3F7, #29B6F6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-item:hover:before {
+            opacity: 1;
+        }
+
+        .menu-letter {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(79, 195, 247, 0.3);
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border: 2px solid rgba(79, 195, 247, 0.5);
+        }
+
+        .menu-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .menu-item p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .generate-more {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #FFC107;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .generate-more:hover {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: rgba(255, 193, 7, 0.5);
+        }
+
+        .welcome-panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .welcome-panel h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #4FC3F7;
+        }
+
+        .welcome-panel p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .practice-box {
+            background: rgba(79, 195, 247, 0.1);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .practice-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #4FC3F7;
+        }
+
+        .generator-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .generator-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #FFC107;
+        }
+
+        .exercise-screen {
+            display: none;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .exercise-header {
+            margin-bottom: 40px;
+        }
+
+        .exercise-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #4FC3F7;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4FC3F7, #29B6F6);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .question-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            background: rgba(79, 195, 247, 0.1);
+            border-color: rgba(79, 195, 247, 0.5);
+        }
+
+        .option.selected {
+            background: rgba(79, 195, 247, 0.2);
+            border-color: #4FC3F7;
+        }
+
+        .option.correct {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4CAF50;
+        }
+
+        .option.incorrect {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: #f44336;
+        }
+
+        .option-letter {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            line-height: 30px;
+            text-align: center;
+            margin-right: 15px;
+            font-weight: 600;
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 1.1rem;
+            margin: 0 5px;
+            min-width: 150px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #4FC3F7;
+            background: rgba(79, 195, 247, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .base-word {
+            background: rgba(79, 195, 247, 0.2);
+            border: 1px solid #4FC3F7;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-left: 15px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .transformation-template {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        .key-word {
+            background: rgba(255, 193, 7, 0.3);
+            border: 1px solid #FFC107;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4FC3F7, #29B6F6);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-generate {
+            background: linear-gradient(45deg, #FFC107, #FF9800);
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .btn-generate:hover {
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.3);
+        }
+
+        .question-number {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .results-screen {
+            display: none;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .score-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 40px 0;
+            animation: scoreReveal 0.8s ease-out;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border: 8px solid rgba(79, 195, 247, 0.3);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #4FC3F7;
+        }
+
+        .answer-review {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .answer-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .answer-item.correct {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .answer-item.incorrect {
+            border-left: 4px solid #f44336;
+        }
+
+        .answer-question {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .answer-details {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .answer-explanation {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(79, 195, 247, 0.3);
+            border-top: 4px solid #4FC3F7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes scoreReveal {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .menu-item {
+                padding: 20px;
+            }
+            
+            .question-container {
+                padding: 25px;
+            }
+
+            .input-field {
+                min-width: 120px;
+                font-size: 1rem;
+            }
+
+            .controls {
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .controls .btn {
+                width: 200px;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="mainMenu">
+            <div class="header">
+                <h1>USE OF ENGLISH — <span class="highlight">C1</span></h1>
+                <p>Cambridge-style tasks; exam-accurate patterns.</p>
+            </div>
+            
+            <div class="main-content">
+                <div class="menu-panel">
+                    <div class="menu-item" onclick="startExercise('multipleChoice')">
+                        <div class="menu-letter">A</div>
+                        <h3>Multiple Choice</h3>
+                        <p>12 items — collocations & subtle grammar</p>
+                        <div class="generate-more" onclick="event.stopPropagation(); generateNew('multipleChoice')">
+                            ✨ Generate New Questions
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="startExercise('gapFill')">
+                        <div class="menu-letter">B</div>
+                        <h3>Open Cloze (Gap-fill)</h3>
+                        <p>8 grammar blanks in a 150-200 word text</p>
+                        <div class="generate-more" onclick="event.stopPropagation(); generateNew('gapFill')">
+                            ✨ Generate New Questions
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="startExercise('wordFormation')">
+                        <div class="menu-letter">C</div>
+                        <h3>Word Formation</h3>
+                        <p>8 sentences, full context — derive the word</p>
+                        <div class="generate-more" onclick="event.stopPropagation(); generateNew('wordFormation')">
+                            ✨ Generate New Questions
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="startExercise('sentenceTransformation')">
+                        <div class="menu-letter">D</div>
+                        <h3>Sentence Transformation</h3>
+                        <p>6 prompts — use the given word (3-5 words)</p>
+                        <div class="generate-more" onclick="event.stopPropagation(); generateNew('sentenceTransformation')">
+                            ✨ Generate New Questions
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="welcome-panel">
+                    <h2>Welcome</h2>
+                    <p>Pick a section to start. Content follows Cambridge C1 Advanced handbook patterns.</p>
+                    
+                    <div class="practice-box">
+                        <h3>Ready for authentic C1 practice?</h3>
+                        <p>Choose <strong>Multiple Choice</strong> for a 12-question set. Gap-fill is a single 160-200 word cloze with 8 grammar blanks (no general vocabulary). Word formation and transformations follow Cambridge patterns.</p>
+                    </div>
+
+                    <div class="generator-box">
+                        <h3>🚀 New Feature: Fresh Content!</h3>
+                        <p>Click <strong>"✨ Generate New Questions"</strong> on any exercise to create completely new C1-level practice questions. Never run out of material!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="exerciseScreen" class="exercise-screen">
+            <div class="exercise-header">
+                <h2 id="exerciseTitle" class="exercise-title">Multiple Choice</h2>
+                <div class="progress-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <div id="questionNumber" class="question-number">Question 1 of 12</div>
+            </div>
+            
+            <div id="questionContainer" class="question-container">
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-secondary" onclick="returnToMenu()">RETURN TO MENU</button>
+                <button class="btn btn-generate" onclick="generateNew(currentExercise.type)">GENERATE NEW SET</button>
+                <button id="nextBtn" class="btn" onclick="nextQuestion()">NEXT</button>
+            </div>
+        </div>
+
+        <div id="resultsScreen" class="results-screen">
+            <h2 class="exercise-title">Results</h2>
+            <div class="score-card">
+                <div class="score-circle">
+                    <div id="finalScore" class="score-text">0/12</div>
+                </div>
+                <h3>Your Score</h3>
+                <p id="scoreMessage">Keep practicing to improve your C1 level skills!</p>
+            </div>
+            
+            <div id="answerKey" class="answer-review">
+            </div>
+            
+            <div class="controls">
+                <button class="btn btn-secondary" onclick="returnToMenu()">RETURN TO MENU</button>
+                <button class="btn btn-generate" onclick="generateNew(currentExercise.type)">GENERATE NEW SET</button>
+                <button class="btn" onclick="restartExercise()">TRY AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const exerciseTemplates = {
+            multipleChoice: {
+                title: "Multiple Choice",
+                totalQuestions: 12,
+                type: "multipleChoice"
+            },
+            gapFill: {
+                title: "Open Cloze (Gap-fill)",
+                totalQuestions: 8,
+                type: "gapFill"
+            },
+            wordFormation: {
+                title: "Word Formation",
+                totalQuestions: 8,
+                type: "wordFormation"
+            },
+            sentenceTransformation: {
+                title: "Sentence Transformation",
+                totalQuestions: 6,
+                type: "sentenceTransformation"
+            }
+        };
+
+        const exerciseGenerators = {
+            multipleChoice: {
+                patterns: [
+                    {template: "The company's reputation was severely _____ by the scandal.", options: ["damaged", "harmed", "tarnished", "spoiled"], correct: 2, focus: "collocation"},
+                    {template: "Despite her _____ efforts to maintain a healthy lifestyle, she still felt exhausted.", options: ["conscious", "conscientious", "concentrated", "considerable"], correct: 1, focus: "near-synonyms"},
+                    {template: "The new evidence _____ serious doubts on the defendant's alibi.", options: ["cast", "put", "placed", "threw"], correct: 0, focus: "idiom"},
+                    {template: "She has a _____ for languages and can pick up vocabulary with ease.", options: ["talent", "gift", "flair", "skill"], correct: 2, focus: "subtle differences"},
+                    {template: "The research findings are _____ with previous studies in the field.", options: ["consistent", "persistent", "resistant", "insistent"], correct: 0, focus: "fixed phrases"},
+                    {template: "The hotel's _____ service exceeded all our expectations.", options: ["impeccable", "irreproachable", "unquestionable", "indisputable"], correct: 0, focus: "register"},
+                    {template: "His argument was so _____ that critics acknowledged its validity.", options: ["compelling", "compulsive", "comprehensive", "competitive"], correct: 0, focus: "meaning nuance"},
+                    {template: "The committee decided to _____ the meeting due to circumstances.", options: ["delay", "postpone", "defer", "adjourn"], correct: 1, focus: "specific usage"},
+                    {template: "Her _____ knowledge of the subject impressed everyone present.", options: ["extensive", "intensive", "expansive", "expensive"], correct: 0, focus: "similar forms"},
+                    {template: "The new policy aims to _____ a better work-life balance.", options: ["achieve", "obtain", "acquire", "attain"], correct: 0, focus: "verb patterns"},
+                    {template: "The documentary _____ light on environmental issues.", options: ["cast", "shed", "threw", "put"], correct: 1, focus: "phrasal meaning"},
+                    {template: "The athlete's performance has been _____ declining since the injury.", options: ["gradually", "eventually", "progressively", "consecutively"], correct: 2, focus: "adverb choice"}
+                ],
+                contexts: [
+                    "business and economics", "health and lifestyle", "legal and justice", "education and learning",
+                    "hospitality and service", "argumentation and debate", "meetings and procedures", "expertise and knowledge",
+                    "workplace and policy", "media and information", "sports and performance", "environment and nature"
+                ],
+                generate: function() {
+                    const questions = [];
+                    const usedPatterns = new Set();
+                    
+                    for (let i = 0; i < 12; i++) {
+                        let patternIndex;
+                        do {
+                            patternIndex = Math.floor(Math.random() * this.patterns.length);
+                        } while (usedPatterns.has(patternIndex));
+                        
+                        usedPatterns.add(patternIndex);
+                        const pattern = this.patterns[patternIndex];
+                        const context = this.contexts[Math.floor(Math.random() * this.contexts.length)];
+                        
+                        questions.push({
+                            question: this.adaptToContext(pattern.template, context),
+                            options: [...pattern.options].sort(() => Math.random() - 0.5),
+                            correct: pattern.options.indexOf(pattern.options[pattern.correct]),
+                            explanation: this.generateExplanation(pattern.options[pattern.correct], pattern.focus)
+                        });
+                    }
+                    
+                    return questions;
+                },
+                adaptToContext: function(template, context) {
+                    const variations = {
+                        "The company's reputation": ["The organization's credibility", "The firm's standing", "The corporation's image"],
+                        "Despite her": ["Despite his", "Despite their", "In spite of her"],
+                        "The new evidence": ["Fresh evidence", "Recent findings", "Additional proof"],
+                        "She has a": ["He demonstrates a", "They show a", "She possesses a"],
+                        "The research findings": ["Study results", "Research outcomes", "Investigation conclusions"],
+                        "The hotel's": ["The restaurant's", "The company's", "The service provider's"],
+                        "His argument": ["Her reasoning", "The proposal", "Their case"],
+                        "The committee": ["The board", "The panel", "The team"],
+                        "Her": ["His", "Their", "The expert's"],
+                        "The new policy": ["The initiative", "The program", "The strategy"],
+                        "The documentary": ["The report", "The investigation", "The study"],
+                        "The athlete's": ["The performer's", "The student's", "The professional's"]
+                    };
+                    
+                    let adapted = template;
+                    for (const [original, alternatives] of Object.entries(variations)) {
+                        if (adapted.includes(original)) {
+                            const replacement = alternatives[Math.floor(Math.random() * alternatives.length)];
+                            adapted = adapted.replace(original, replacement);
+                        }
+                    }
+                    
+                    return adapted;
+                },
+                generateExplanation: function(correctAnswer, focus) {
+                    const explanations = {
+                        collocation: `'${correctAnswer}' forms the strongest collocation in this context.`,
+                        "near-synonyms": `'${correctAnswer}' is the most precise choice among these near-synonyms.`,
+                        idiom: `'${correctAnswer}' is part of the correct idiomatic expression.`,
+                        "subtle differences": `'${correctAnswer}' captures the subtle meaning required here.`,
+                        "fixed phrases": `'${correctAnswer}' completes the standard fixed phrase.`,
+                        register: `'${correctAnswer}' matches the appropriate register for this context.`,
+                        "meaning nuance": `'${correctAnswer}' conveys the precise nuance of meaning.`,
+                        "specific usage": `'${correctAnswer}' is the most appropriate for this specific usage.`,
+                        "similar forms": `'${correctAnswer}' is the correct form despite similar alternatives.`,
+                        "verb patterns": `'${correctAnswer}' follows the correct grammatical pattern.`,
+                        "phrasal meaning": `'${correctAnswer}' completes the correct phrasal expression.`,
+                        "adverb choice": `'${correctAnswer}' is the most suitable adverb for this context.`
+                    };
+                    
+                    return explanations[focus] || `'${correctAnswer}' is the correct answer for this C1-level question.`;
+                }
+            },
+
+            gapFill: {
+                patterns: [
+                    {template: "Scientists have discovered that regular exercise can improve cognitive function, _____ it has been known for centuries.", answer: "although", type: "conjunction"},
+                    {template: "The museum, _____ houses one of the world's finest collections, attracts visitors globally.", answer: "which", type: "relative pronoun"},
+                    {template: "_____ the circumstances, we decided to proceed with the original plan.", answer: "despite", type: "preposition"},
+                    {template: "She has been working on this project and should _____ finished it by now.", answer: "have", type: "modal perfect"},
+                    {template: "The more time you spend practicing, _____ better your performance becomes.", answer: "the", type: "comparative"},
+                    {template: "Not only did the team win, _____ they also broke several records.", answer: "but", type: "correlative conjunction"},
+                    {template: "_____ it not been for your help, we would never have succeeded.", answer: "had", type: "conditional inversion"},
+                    {template: "Despite _____ warned repeatedly, some people still ignore the advice.", answer: "being", type: "gerund passive"}
+                ],
+                generate: function() {
+                    const questions = [];
+                    const shuffled = [...this.patterns].sort(() => Math.random() - 0.5);
+                    
+                    for (let i = 0; i < 8; i++) {
+                        const pattern = shuffled[i];
+                        questions.push({
+                            question: this.varyTemplate(pattern.template),
+                            correct: pattern.answer,
+                            explanation: this.getExplanation(pattern.answer, pattern.type)
+                        });
+                    }
+                    
+                    return questions;
+                },
+                varyTemplate: function(template) {
+                    const subjects = ["Scientists", "Researchers", "Experts", "Scholars"];
+                    const objects = ["the museum", "the building", "the institution", "the center"];
+                    const topics = ["this project", "the assignment", "the task", "the work"];
+                    
+                    return template
+                        .replace("Scientists", subjects[Math.floor(Math.random() * subjects.length)])
+                        .replace("the museum", objects[Math.floor(Math.random()
